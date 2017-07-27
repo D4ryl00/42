@@ -1,0 +1,5 @@
+#!/bin/sh
+
+find . \( -name '*~' -or -name '#*#' \) -print -delete
+
+exit 0
