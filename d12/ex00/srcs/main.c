@@ -33,8 +33,6 @@ int		ft_print_errors(int nbr)
 		ft_putstr(2, "File name missing.\n");
 	else if (nbr == 1)
 		ft_putstr(2, "Too many arguments.\n");
-	else if (nbr == 2)
-		ft_putstr(2, "File cannot be opened.\n");
 	return (1);
 }
 
@@ -49,12 +47,12 @@ int		main(int argc, char **argv)
 	if (argc > 2)
 		return (ft_print_errors(1));
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		return (ft_print_errors(2));
+		return (1);
 	while ((ret = read(fd, buf, BUF_SIZE)))
 	{
 		buf[ret] = '\0';
 		ft_putstr(1, buf);
 	}
 	if (close(fd) == -1)
-		return (ft_print_errors(3));
+		return (1);
 }

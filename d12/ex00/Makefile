@@ -12,12 +12,14 @@
 
 NAME = ft_display_file
 SRCS = srcs/main.c
+
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME):
-	gcc $(CFLAGS) -o $(NAME) $(SRCS)
+$(NAME): $(srcs)
+	$(CC) $(CFLAGS) -o $(NAME) $(SRCS)
 
 clean:
 	rm -f *.o
