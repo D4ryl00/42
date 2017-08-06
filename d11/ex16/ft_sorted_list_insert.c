@@ -43,9 +43,9 @@ void	ft_sorted_list_insert(t_list **begin_list, void *data, int (*cmp)())
 {
 	t_list	*next;
 
-	if (*begin_list && data)
+	if (data)
 	{
-		if ((*cmp)(data, (*begin_list)->data) < 0)
+		if (!*begin_list || (*cmp)(data, (*begin_list)->data) < 0)
 		{
 			next = *begin_list;
 			*begin_list = ft_create_elem(data);
