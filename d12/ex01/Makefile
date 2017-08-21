@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbarbero <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/07/21 02:52:13 by rbarbero          #+#    #+#              #
-#    Updated: 2017/07/21 03:09:58 by rbarbero         ###   ########.fr        #
+#    Created: 2017/08/19 23:19:49 by rbarbero          #+#    #+#              #
+#    Updated: 2017/08/21 02:34:14 by rbarbero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_display_file
+NAME = ft_cat
 SRCS = srcs/main.c
 
 CC = gcc
