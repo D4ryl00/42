@@ -1,9 +1,0 @@
-[submodule "42_commandements"]
-	path = 42_commandements
-	url = vogsphere@vogsphere.42.fr:intra/2017/activities/42_formation_pole_emploi_42_commandements/rbarbero
-[submodule "piscine_reloaded"]
-	path = piscine_reloaded
-	url = vogsphere@vogsphere.42.fr:intra/2017/activities/piscine_reloaded/rbarbero3
-[submodule "libft"]
-	path = libft
-	url = vogsphere@vogsphere.42.fr:intra/2017/activities/libft/rbarbero
