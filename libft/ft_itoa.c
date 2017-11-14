@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 16:10:58 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/14 17:00:43 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/14 21:55:18 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ static int	get_size(int n)
 static void	complete_str(char *s, int n, int size, int minus)
 {
 	int	i;
+	int	coef;
 
+	coef = minus ? -1 : 1;
 	i = size + minus;
 	while (--i >= 0)
 	{
-		s[i] = n % 10 + '0';
+		s[i] = coef * (n % 10) + '0';
 		n /= 10;
 	}
 	if (minus)
