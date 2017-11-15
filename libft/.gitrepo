@@ -7,5 +7,5 @@
 	remote = vogsphere@vogsphere.42.fr:intra/2017/activities/libft/rbarbero
 	branch = master
 	commit = 452f593bf7fd16f1798ce9f611fa0553ea9327e4
-	parent = b3a2142005e7ded5244cdd289d92c31d03ec3994
+	parent = 691e40d4c8ae48124c67e0159523fd3e2e2da085
 	cmdver = 0.3.1
