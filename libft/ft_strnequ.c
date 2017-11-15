@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 17:34:29 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/13 17:40:09 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/15 14:31:41 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,5 @@
 
 int	ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	while (n-- && *s1 && *s2 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 == *s2);
+	return (!ft_strncmp(s1, s2, n) ? 1 : 0);
 }

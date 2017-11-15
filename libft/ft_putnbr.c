@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 14:37:47 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/15 15:23:35 by rbarbero         ###   ########.fr       */
+/*   Created: 2017/11/15 13:00:22 by rbarbero          #+#    #+#             */
+/*   Updated: 2017/11/15 13:39:34 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_putnbr(int n)
 {
-	if (!n)
-		return (0);
-	while (n && *s1 && *s2 && *s1 == *s2)
+	int	size;
+	int	tmp;
+
+	if (n < 0)
+		ft_putchar('-');
+	else
+		n = -n;
+	tmp = n;
+	size = 1;
+	while (tmp /= 10)
+		size *= 10;
+	while (size)
 	{
-		n--;
-		s1++;
-		s2++;
+		ft_putchar(-((n / size) % 10) + '0');
+		size /= 10;
 	}
-	return (!n ? (unsigned char)*--s1 - (unsigned char)*--s2
-			: (unsigned char)*s1 - (unsigned char)*s2);
 }
