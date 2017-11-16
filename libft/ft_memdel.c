@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 15:52:47 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/13 17:14:01 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/16 20:59:21 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 void	ft_memdel(void **ap)
 {
-	free(*ap);
-	*ap = NULL;
+	if (ap && *ap)
+	{
+		free(*ap);
+		*ap = NULL;
+	}
 }

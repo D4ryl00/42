@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 19:56:55 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/14 16:07:57 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/16 21:55:44 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ static int	count_words(const char *s, char c)
 	return (len);
 }
 
+static void	free_memory(char **ar)
+{
+	while (*ar)
+		free(*ar);
+	free(ar);
+	ar = NULL;
+}
+
 static char	**add_words(char **ar, const char *s, char c)
 {
 	int			i;
@@ -48,7 +56,10 @@ static char	**add_words(char **ar, const char *s, char c)
 		if (end - start > 0)
 		{
 			if (!(ar[i] = (char *)malloc(end - start + 1)))
+			{
+				free_memory(ar);
 				return (NULL);
+			}
 			ft_strncpy(ar[i], start, end - start);
 			ar[i++][end - start] = '\0';
 		}
@@ -61,6 +72,8 @@ char		**ft_strsplit(char const *s, char c)
 	int			size;
 	char		**ar;
 
+	if (!s)
+		return (NULL);
 	size = count_words(s, c);
 	if (!(ar = (char **)malloc(sizeof(char *) * size + 1)))
 		return (NULL);

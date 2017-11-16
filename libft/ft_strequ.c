@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 17:27:00 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/15 14:32:43 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/16 21:07:24 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	ft_strequ(char const *s1, char const *s2)
 {
-	return (!ft_strcmp(s1, s2) ? 1 : 0);
+	if (s1 && s2)
+		return (!ft_strcmp(s1, s2) ? 1 : 0);
+	return (0);
 }

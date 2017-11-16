@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 15:39:38 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/15 15:52:24 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/16 16:48:05 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	if (content)
 	{
 		if (!(lst->content = malloc(content_size)))
+		{
+			free(lst);
 			return (NULL);
+		}
 		ft_memcpy(lst->content, content, content_size);
 		lst->content_size = content_size;
 	}

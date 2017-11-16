@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 18:26:53 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/13 19:44:39 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/16 21:12:17 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_strtrim(char const *s)
 	size_t		len;
 	size_t		i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (s[i] && (s[i] == ' ' || s[i] == '\n' || s[i] == '\t'))
 		i++;

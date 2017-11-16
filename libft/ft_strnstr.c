@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 13:53:14 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/13 12:59:36 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/16 20:48:55 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	while (i < len && haystack[i])
 	{
 		found = 0;
-		while (i + found < len && haystack[i + found] && needle[i + found]
+		while (i + found < len && haystack[i + found] && needle[found]
 				&& haystack[i + found] == needle[found])
 			found++;
 		if (!needle[found])

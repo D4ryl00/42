@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 16:12:57 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/13 17:14:40 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/16 21:00:07 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 
 void	ft_strdel(char **as)
 {
-	free(*as);
-	*as = NULL;
+	if (as && *as)
+	{
+		free(*as);
+		*as = NULL;
+	}
 }
