@@ -6,7 +6,7 @@
 #    By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 12:15:31 by rbarbero          #+#    #+#              #
-#    Updated: 2017/11/16 16:21:55 by rbarbero         ###   ########.fr        #
+#    Updated: 2017/11/20 10:29:06 by rbarbero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_strsplit.c ft_itoa.c ft_putchar.c ft_putstr.c ft_putendl.c \
 	   ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
 	   ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
-	   ft_lstiter.c ft_lstmap.c
+	   ft_lstiter.c ft_lstmap.c ft_strsplittolst.c ft_lstnewnode.c \
+	   ft_lstpushback.c ft_lstsize.c
 OBJS = $(SRCS:%.c=%.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror

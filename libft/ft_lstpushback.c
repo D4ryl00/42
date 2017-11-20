@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.h                                          :+:      :+:    :+:   */
+/*   ft_lstpushback.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 14:49:29 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/17 11:04:06 by rbarbero         ###   ########.fr       */
+/*   Created: 2017/11/20 10:29:41 by rbarbero          #+#    #+#             */
+/*   Updated: 2017/11/20 10:30:40 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_lstpushback(t_list **begin_list, void *content, size_t content_size)
 {
-	unsigned long	nbr;
-	int				coef;
+	t_list	*tmp;
 
-	nbr = 0;
-	coef = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
-		coef = *str++ == '-' ? -1 : 1;
-	while (*str >= '0' && *str <= '9')
+	tmp = *begin_list;
+	if (begin_list)
 	{
-		nbr = nbr * 10 + (*str++ - '0');
-		if (coef == 1 && nbr > 0x7FFFFFFFFFFFFFFF)
-			return (-1);
-		if (coef == -1 && nbr > 0x8000000000000000)
-			return (0);
+		if (*begin_list)
+		{
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = ft_lstnew(content, content_size);
+		}
+		else
+			*begin_list = ft_lstnew(content, content_size);
 	}
-	return (coef == 1 ? (int)nbr : (int)-nbr);
 }
