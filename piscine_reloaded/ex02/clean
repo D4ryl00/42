@@ -1,0 +1,5 @@
+#!/bin/sh
+
+find . -type f \( -regex ".*/.*~" -or -regex ".*/#.*#" \) -print -delete
+
+exit 0
