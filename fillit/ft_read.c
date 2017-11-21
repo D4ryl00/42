@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   ft_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/20 19:38:40 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/21 19:23:03 by rbarbero         ###   ########.fr       */
+/*   Created: 2017/11/21 15:19:19 by sderet            #+#    #+#             */
+/*   Updated: 2017/11/21 18:57:04 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "fillit.h"
+#include <fcntl.h>
 
-int		print_usage(void)
+char	**ft_read(char **filename)
 {
-	ft_putendl("usage: ./fillit source_file");
+	int		fd;
+	char	str[550];
+	int		test;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	while (test != 0)
+		test = read(fd, str, 21);
+	if (close(fd) == -1)
+		return (0);
 	return (1);
-}
-
-int		print_error(void)
-{
-	ft_putendl("error");
-	return (1);
-}
-
-void	print_result(char **result)
-{
 }
