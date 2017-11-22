@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 19:33:59 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/21 19:26:09 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/22 15:11:46 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 typedef struct	s_tetri
 {
-	char	*scheme;
+	char	**scheme;
 	char	row;
 	char	col;
+	char	letter;
 }				t_tetri;
 
 int				print_usage(void);
@@ -28,7 +29,7 @@ char			err_std(void);
 int				valid_line_check(char **tab, int a, int c);
 int				last_check(char**tab);
 char			check_error(char *tetriminos);
-t_tetri			*parse(char *input, char *nb_tetri);
+t_tetri			**parse(char *input, char *nb_tetri);
 char			*resolve(t_tetri **tetris, int nb_tetri);
 void			print_result(char **result);
 
