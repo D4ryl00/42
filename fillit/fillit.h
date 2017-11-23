@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 19:33:59 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/22 15:11:46 by sderet           ###   ########.fr       */
+/*   Updated: 2017/11/23 01:20:21 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@
 typedef struct	s_tetri
 {
 	char	**scheme;
-	char	row;
+	char	row;s
 	char	col;
 	char	letter;
 }				t_tetri;
+
+typedef struct	s_coord
+{
+	char	x;
+	char	y;
+}				t_coord;
 
 int				print_usage(void);
 int				print_error(void);

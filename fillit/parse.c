@@ -6,14 +6,14 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:25:01 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/22 16:19:57 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/23 02:00:44 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdlib.h>
 
-static int	count_tetri(const char *input)
+static int		count_tetri(const char *input)
 {
 	int nbr;
 
@@ -29,37 +29,51 @@ static int	count_tetri(const char *input)
 	return (nbr);
 }
 
-static void	compute_size(t_tetri *tetri, const char *input)
+static t_coord	locate_scheme(t_tetri *tetri, const char *input)
 {
-	int	width;
-	int	height;
-	int	flag;
+	char	i;
+	t_coord	*min;
+	t_coord	*max;
 
-	width = 0;
-	height = 0;
-	while (*input && i < 4)
+	if (!(min = (t_coord *)malloc(sizeof(t_coord)))
+			|| !(max = (t_coord *)malloc(sizeof(t_coord))))
+		return (NULL);
+	i = -1;
+	min->y = 4;
+	min->x = 4;
+	max->y = 0;
+	max->x = 0;
+	while (input[++i] && i < 20)
 	{
-		flag = 1;
-		while(*input && input != '\n')
+		if (input[i] == '#')
 		{
-			if (*input == '#')
-			{
-				width++;
-				height += flag;
-				flag = 0;
-				i++;
-			}
+			min->y = min->y > i / 4 ? i / 4 : min->y;
+			min->x = min->x > i % 4 ? i % 4 : min->x;
+			max->y = max->y < i / 4 ? i / 4 : max->y;
+			max->x = max->x < i % 4 ? i % 4 : max->x;
 		}
 	}
-	tetri->row = width;
-	tetri->col = height;
+	tetri->row = max->y - min->y + 1;
+	tetri->col = max->x - min->x + 1;
+	return (min);
 }
 
-static void	parse_tetri(t_tetri *tetri, char **input)
+static char		**parse_tetri(t_tetri *tetri, char **input)
 {
-	compute_size(tetri, *input);
-	if (!(tetri->scheme = (char **)malloc(tetri->row * tetri->col)
+	t_coord	*start;
+	char	index;
+	char	i;
 
+	start = locate_scheme(tetri, *input);
+	index = start->y * 4  + start->x;
+	if (!(tetri->scheme = (char **)malloc(sizeof(char *) * tetri->row)))
+			return (NULL);
+	i = -1;
+	while (++i < tetri->row)
+		if (!(tetri->scheme[i] = (char *)malloc(tetri->col)))
+				return (NULL);
+	i = 0;
+	while ((i / 4) * min_y + i < tetri->row * 4 + tetri->col)
 
 t_tetri		*parse(char *input, char *nb_tetri)
 {
