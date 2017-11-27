@@ -6,7 +6,7 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 15:09:22 by sderet            #+#    #+#             */
-/*   Updated: 2017/11/25 11:08:05 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/27 13:45:36 by sderet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ static unsigned char	nb_blocks_check(char *tet)
 **	Modify bvar if un hash is adjacent with an other
 */
 
-static void				check_adj(int *bvar, char *input)
+static void				check_adj(int *bvar, char *input, int *i)
 {
-	if ((*bvar & 0xff) - 5 >= (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
-			* 20 && input[(*bvar & 0xff) - 5] == '#')
+	if ((*i) - 5 >= (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 && input[*i - 5] == '#')
 		*bvar += 0x100;
-	if ((*bvar & 0xff) - 1 >= (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
-			* 20 && input[(*bvar & 0xff) - 1] == '#')
+	if ((*i) - 1 >= (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 && input[*i - 1] == '#')
 		*bvar += 0x100;
-	if ((*bvar & 0xff) + 1 < (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
-			* 20 + 20 && input[(*bvar & 0xff) + 1] == '#')
+	if ((*i) + 1 < (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 + 20 && input[*i + 1] == '#')
 		*bvar += 0x100;
-	if ((*bvar & 0xff) + 5 < (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
-			* 20 + 20 && input[(*bvar & 0xff) + 5] == '#')
+	if ((*i) + 5 < (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 + 20 && input[*i + 5] == '#')
 		*bvar += 0x100;
 }
 
@@ -119,16 +119,18 @@ static void				check_adj(int *bvar, char *input)
 static unsigned char	valid_tetri_check(char *input)
 {
 	int	bvar;
+	int i;
 
 	bvar = 0;
-	while (input[(bvar & 0xff)])
+	i = 0;
+	while (input[i])
 	{
-		while (input[(bvar & 0xff)] && input[(bvar & 0xff)] != '#')
-			bvar++;
-		while (input[(bvar & 0xff)] && input[(bvar & 0xff)] == '#')
+		while (input[i] && input[i] != '#')
+			i++;
+		while (input[i] && input[i] == '#')
 		{
 			bvar &= 0xffff00ff;
-			check_adj(&bvar, input);
+			check_adj(&bvar, input, &i);
 			if (!((bvar & 0xff00) >> 8))
 				return (0);
 			bvar += ((bvar & 0xff00) >> 8) > 1 && ((bvar & 0xff0000) >> 16)
@@ -136,7 +138,7 @@ static unsigned char	valid_tetri_check(char *input)
 			if (((bvar & 0xff0000) >> 16) < (bvar >> 24) / 4)
 				return (0);
 			bvar += 0x1000000;
-			bvar++;
+			i++;
 		}
 	}
 	return ((bvar & 0xff0000) >> 16 == (bvar >> 24) / 4 ? 1 : 0);

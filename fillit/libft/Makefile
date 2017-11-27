@@ -6,7 +6,7 @@
 #    By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 12:15:31 by rbarbero          #+#    #+#              #
-#    Updated: 2017/11/24 09:38:26 by rbarbero         ###   ########.fr        #
+#    Updated: 2017/11/27 12:28:56 by rbarbero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_lstiter.c ft_lstmap.c ft_strsplittolst.c ft_lstnewnode.c \
 	   ft_lstpushback.c ft_lstsize.c
 OBJS = $(SRCS:%.c=%.o)
+HEADERS = libft.h
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -34,7 +35,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar -rc $(NAME) $^
 
-$(OBJS): %.o: %.c
+$(OBJS): %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 debug: CFLAGS += -g
