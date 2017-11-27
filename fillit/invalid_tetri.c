@@ -6,14 +6,20 @@
 /*   By: sderet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 15:09:22 by sderet            #+#    #+#             */
-/*   Updated: 2017/11/21 17:21:11 by sderet           ###   ########.fr       */
+/*   Updated: 2017/11/25 11:08:05 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "libft/libft.h"
 
-static char	size_check(char *tet)
+/*
+**	Checks if every line in the file is 4 characters long, or 1 character
+**	long if it is the space between two tetriminos.
+**	Returns 1 if the file works, 0 else.
+*/
+
+static unsigned char	size_check(char *tet)
 {
 	int a;
 	int b;
@@ -27,99 +33,134 @@ static char	size_check(char *tet)
 		while (b < 4)
 		{
 			if (tet[a + b] != '#' && tet[a + b] != '.')
-				return (err_std());
+				return (0);
 			b++;
 		}
 		c++;
 		if (tet[a + b] != '\n' || c > 4 || (tet[a + b + 1] == '\n' && c != 4))
-			return (err_std());
+			return (0);
 		if (tet[a + b + 1] == '\n')
 			c = 0;
 		a += (tet[a + b + 1] == '\n' ? b + 2 : b + 1);
 	}
 	if (c != 4)
-		return (err_std());
-	return (0);
+		return (0);
+	return (1);
 }
 
-static char	nb_blocks_check(char *tet)
+/*
+**	Checks if every character in the file is either a ., a # or a \n.
+**	Checks if each tetriminos has 4 #. If not, returns 0.
+*/
+
+static unsigned char	nb_blocks_check(char *tet)
 {
 	int a;
 	int b;
+	int c;
 
-	a = 0;
+	a = -1;
 	b = 0;
-	while (tet[a] != '\0')
+	c = 0;
+	while (tet[++a] != '\0')
 	{
+		if (tet[a] != '.' && tet[a] != '#' && tet[a] != '\n')
+			return (0);
+		if (tet[a] == '\n')
+			c++;
 		if (tet[a] == '#')
 			b++;
 		else if (tet[a] == '\n' && (tet[a + 1] == '\n' || tet[a + 1] == '\0'))
 		{
 			if (b != 4)
-				return (err_std());
+				return (0);
 			b = 0;
 		}
-		a++;
 	}
-	return (0);
+	if (c < 4)
+		return (0);
+	return (1);
 }
 
-static char	char_check(char *tet)
-{
-	int a;
+/*
+**	Modify bvar if un hash is adjacent with an other
+*/
 
-	a = 0;
-	while (tet[a] != '\0')
-	{
-		if (tet[a] != '.' && tet[a] != '#' && tet[a] != '\n')
-			return (err_std());
-		a++;
-	}
-	return (0);
+static void				check_adj(int *bvar, char *input)
+{
+	if ((*bvar & 0xff) - 5 >= (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 && input[(*bvar & 0xff) - 5] == '#')
+		*bvar += 0x100;
+	if ((*bvar & 0xff) - 1 >= (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 && input[(*bvar & 0xff) - 1] == '#')
+		*bvar += 0x100;
+	if ((*bvar & 0xff) + 1 < (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 + 20 && input[(*bvar & 0xff) + 1] == '#')
+		*bvar += 0x100;
+	if ((*bvar & 0xff) + 5 < (*bvar >> 24) / 4 + ((*bvar >> 24) / 4)
+			* 20 + 20 && input[(*bvar & 0xff) + 5] == '#')
+		*bvar += 0x100;
 }
 
-static char	valid_tetri_check(char *tet)
-{
-	int		a;
-	int		b;
-	int		c;
-	char	**tab;
+/*
+** Checks if each # in each tetriminos has at least one adjacent #.
+** If not, returns 1.
+** unsigned int bvar;
+** Bitwise operations on bvar
+** 00000000 00000000 00000000 00000000
+**    1        2        3        4
+** Explanation of each segment
+** 1: number of hash in input
+** 2: number of hash adjacent with 2 other in input
+** 3: number of adjacent hash in one tetri
+** 4: index
+*/
 
-	a = 0;
-	tab = ft_strsplit(tet, '\n');
-	while (tab[a] != 0)
+static unsigned char	valid_tetri_check(char *input)
+{
+	int	bvar;
+
+	bvar = 0;
+	while (input[(bvar & 0xff)])
 	{
-		c = 0;
-		while (c < 4)
+		while (input[(bvar & 0xff)] && input[(bvar & 0xff)] != '#')
+			bvar++;
+		while (input[(bvar & 0xff)] && input[(bvar & 0xff)] == '#')
 		{
-			b = valid_line_check(tab, a, c);
-			if (b == 1)
-				return (err_std());
-			c++;
+			bvar &= 0xffff00ff;
+			check_adj(&bvar, input);
+			if (!((bvar & 0xff00) >> 8))
+				return (0);
+			bvar += ((bvar & 0xff00) >> 8) > 1 && ((bvar & 0xff0000) >> 16)
+				< (bvar >> 24) / 4 + 1 ? 0x10000 : 0;
+			if (((bvar & 0xff0000) >> 16) < (bvar >> 24) / 4)
+				return (0);
+			bvar += 0x1000000;
+			bvar++;
 		}
-		a += 4;
 	}
-	return (0);
-	if (last_check(tab) == 1)
-		return (err_std());
-	return (0);
+	return ((bvar & 0xff0000) >> 16 == (bvar >> 24) / 4 ? 1 : 0);
 }
 
-char		check_error(char *tetriminos)
-{
-	char	(*test[4])(char *tetriminos);
-	int		a;
+/*
+**	Uses the other functions in the file to check for any error.
+**	If any error is detected, returns 0.
+*/
 
-	a = 0;
+unsigned char			check_error(char *tetriminos)
+{
+	unsigned char	(*test[3])(char *tetriminos);
+	unsigned char	i;
+
+	i = 0;
 	test[0] = &size_check;
 	test[1] = &nb_blocks_check;
-	test[2] = &char_check;
-	test[3] = &valid_tetri_check;
-	while (a <= 3)
+	test[2] = &valid_tetri_check;
+	while (i < 3)
 	{
-		if (test[a](tetriminos) == 1)
-			return (1);
-		a++;
+		if (test[i](tetriminos) == 0)
+			return (0);
+		i++;
 	}
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 12:15:31 by rbarbero          #+#    #+#              #
-#    Updated: 2017/11/21 13:21:00 by rbarbero         ###   ########.fr        #
+#    Updated: 2017/11/24 09:38:26 by rbarbero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,6 @@ OBJS = $(SRCS:%.c=%.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-debug: CFLAGS += -g
-debug: all
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -39,6 +36,9 @@ $(NAME): $(OBJS)
 
 $(OBJS): %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
+
+debug: CFLAGS += -g
+debug: all
 
 clean:
 	rm -f $(OBJS)
