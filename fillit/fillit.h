@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 19:33:59 by rbarbero          #+#    #+#             */
-/*   Updated: 2017/11/27 10:26:06 by rbarbero         ###   ########.fr       */
+/*   Updated: 2017/11/25 10:41:32 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 typedef struct	s_tetri
 {
-<<<<<<< HEAD
 	char			**scheme;
 	unsigned char	row;
 	unsigned char	col;
