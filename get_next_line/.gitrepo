@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = vogsphere@vogsphere.42.fr:intra/2017/activities/get_next_line/rbarbero
+	branch = master
+	commit = c9eea050cf0326c80527cad938023d7162345c33
+	parent = 93b8e410c0535246efefb787c933351134311eee
+	cmdver = 0.3.1
