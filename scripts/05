@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo -n "42"
+
+exit 0

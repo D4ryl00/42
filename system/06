@@ -1,1 +1,1 @@
-reboot
+service ssh restart
