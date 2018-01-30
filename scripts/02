@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cat > /root/update_script.sh <<EOF
+#!/bin/sh
+( apt-get update && apt-get upgrade ) > /var/log/update_script.log
+exit 0
+EOF
+chmod +x /root/update_script.sh
+echo "0 4 * * 0 root /root/update_script.sh" >> /etc/crontab
+
+exit 0
