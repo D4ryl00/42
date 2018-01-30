@@ -1,0 +1,1 @@
+ifconfig awdl0 ether | grep ether | cut -d ' ' -f 2
