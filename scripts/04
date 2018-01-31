@@ -3,15 +3,17 @@
 FILE=/etc/crontab
 DEST=crontab_sum
 
+MD5=$(md5sum $FILE)
 if [ ! -e crontab_sum ]
 then
-	md5sum $FILE > $DEST 
-fi
-MD5=$(md5sum $FILE)
-MD5_BACK=$(cat $DEST)
-if [ "$MD5" != "$MD5_BACK" ]
-then
-	echo "The $FILE has been modified!" | mail -s "crontab modified" root
+	echo "$MD5" > $DEST 
+else
+	MD5_BACK=$(cat $DEST)
+	if [ "$MD5" != "$MD5_BACK" ]
+	then
+		echo "The $FILE has been modified!" | mail -s "crontab modified" root
+		echo "$MD5" > $DEST 
+	fi
 fi
 
 exit 0
