@@ -1,0 +1,25 @@
+docker run -dt \
+--name Abathur \
+-v $(PWD)/data:/root \
+-p 3000:3000 \
+python:2-slim
+
+docker exec Abathur \
+pip install --trusted-host pypi.python.org Flask
+
+cat > ./data/hello-world.py <<EOF
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    html = "<!DOCTYPE html><html><head></head><body><h1>Hello World</h1></body></html>"
+    return html
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port= 3000)
+EOF
+
+docker exec Abathur \
+python /root/hello-world.py

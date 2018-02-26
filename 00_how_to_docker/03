@@ -1,1 +1,1 @@
-env $(docker-machine env Char | sed "s/export //g" | tr -d "\"" | sed "/#/d") zsh
+eval $(docker-machine env Char)

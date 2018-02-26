@@ -1,0 +1,31 @@
+version: '3.2'
+services:
+  mongo:
+    image: "mongo:3.7-jessie"
+    restart: always
+    ports:
+      - 22017:22017
+    volumes:
+      - type: volume
+        source: mongo
+        target: /data/db
+    networks:
+      - net
+  nodejs:
+    build:
+      context: ./
+      dockerfile: Dockerfile-nodejs
+    restart: always
+    ports:
+      - 3000:3000 
+    networks:
+      - net
+    volumes:
+      - type: bind
+        source: ./data/nodejs
+        target: /data/nodejs
+networks:
+  net:
+    driver: bridge
+volumes:
+  mongo:
