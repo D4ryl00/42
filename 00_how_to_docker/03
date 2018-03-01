@@ -1,1 +1,1 @@
-eval $(docker-machine env Char)
+eval $(docker-machine env Char | sed 's/"//g' | sed '/^#/ d')

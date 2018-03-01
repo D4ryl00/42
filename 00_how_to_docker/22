@@ -1,1 +1,1 @@
-docker swarm join --token SWMTKN-1-66ida1rvu90o81tm5w2e0sgt4bdaent9a6u1um6fibjxr2gxn4-dzn5r394mvvn8zkqqosu29te0 192.168.99.100:2377
+docker-machine ssh Aiur "docker swarm join --token $(docker swarm join-token -q worker) $(docker-machine ip Char)"

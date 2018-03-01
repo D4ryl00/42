@@ -1,13 +1,13 @@
 docker run -dt \
 --name Abathur \
--v $(PWD)/data:/root \
+-v /Users/rbarbero:/root \
 -p 3000:3000 \
 python:2-slim
 
 docker exec Abathur \
 pip install --trusted-host pypi.python.org Flask
 
-cat > ./data/hello-world.py <<EOF
+cat > /Users/rbarbero/hello-world.py <<EOF
 from flask import Flask
 
 app = Flask(__name__)
