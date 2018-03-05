@@ -1,1 +1,1 @@
-docker-machine create -d virtualbox Char --virtualbox-memory "4096"
+docker-machine create -d virtualbox --virtualbox-memory 4096 Char
