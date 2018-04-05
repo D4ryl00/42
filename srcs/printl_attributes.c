@@ -6,7 +6,7 @@
 /*   By: rbarbero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 11:42:39 by rbarbero          #+#    #+#             */
-/*   Updated: 2018/04/04 13:56:41 by rbarbero         ###   ########.fr       */
+/*   Updated: 2018/04/05 13:38:13 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ char	get_file_type(struct stat *stats)
 
 char	get_file_ext_attr(char *path)
 {
+	acl_t	acl;
+
 	if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > 0)
 		return ('@');
-	if (acl_get_file(path, ACL_TYPE_EXTENDED))
+	if ((acl = acl_get_file(path, ACL_TYPE_EXTENDED)))
+	{
+		free(acl);
 		return ('+');
+	}
 	return (' ');
 }
 

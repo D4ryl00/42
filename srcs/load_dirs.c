@@ -6,7 +6,7 @@
 /*   By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 09:25:43 by rbarbero          #+#    #+#             */
-/*   Updated: 2018/04/04 13:10:17 by rbarbero         ###   ########.fr       */
+/*   Updated: 2018/04/05 13:32:08 by rbarbero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ static void	extract_dir(DIR *dir, t_args *args)
 
 signed char	load_list_of_files(t_args *args)
 {
-	DIR	*dir;
+	DIR		*dir;
+	char	*tmp;
 
 	if (args->files)
 		return (1);
@@ -105,8 +106,9 @@ signed char	load_list_of_files(t_args *args)
 			extract_dir(dir, args);
 		else
 		{
-			str_perror(ft_getfilename(args->dirs->content));
+			str_perror((tmp = ft_getfilename(args->dirs->content)));
 			ft_lstdelnode(&(args->dirs), args->dirs, delete_dir);
+			free(tmp);
 		}
 		return (1);
 	}

@@ -6,7 +6,7 @@
 #    By: rbarbero <rbarbero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/09 12:15:31 by rbarbero          #+#    #+#              #
-#    Updated: 2018/04/03 11:24:50 by rbarbero         ###   ########.fr        #
+#    Updated: 2018/04/05 13:14:39 by rbarbero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,6 @@ LHEADERS = $(HEADERS:%.h=$(HEADERS_DIR)%.h)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-debug: CFLAGS += -g
-debug: all
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -57,6 +54,9 @@ $(NAME): $(OBJS)
 
 $(OBJS): %.o: %.c $(LHEADERS)
 	$(CC) $(CFLAGS) -o $@ -I $(HEADERS_DIR) -c $<
+
+debug: CFLAGS += -g
+debug: all
 
 clean:
 	rm -f $(OBJS)
