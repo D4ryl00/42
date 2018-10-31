@@ -1,0 +1,2 @@
+Lorsque que l'on interroge 42.fr avec le serveur DNS par défaut, nous avons une adresse IP locale supplémentaire en plus des adresses IP publiques.
+A contrario, avec un serveur DNS externe, cette adresse IP locale n'apparaît pas.

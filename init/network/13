@@ -1,0 +1,2 @@
+La commande `traceroute 10.51.1.253` me renvoie dhcp (10.51.1.253), donc cette IP pointe vers un serveur DHCP.
+J'ai la confirmation avec la commande `host 10.51.1.253` qui m'informe que l'IP est pointée par le nom de domaine dhcp.42.fr.
