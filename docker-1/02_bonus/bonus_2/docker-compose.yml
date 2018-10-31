@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: "mariadb:10.3"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: test
+      MYSQL_USER: rbarbero
+      MYSQL_PASSWORD: born2code
+    ports:
+      - 3306
+    networks:
+      - network
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile-web
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - network
+    volumes:
+      - ~/docker/http:/var/www/html
+networks:
+  network:
+    driver: bridge

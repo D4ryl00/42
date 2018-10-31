@@ -1,0 +1,11 @@
+FROM node:9.5
+
+WORKDIR /data/nodejs
+
+RUN npm install -g express \
+	&& npm install -g angular \
+	&& npm install -g bower
+
+EXPOSE 3000
+
+CMD ["bash", "-c", "npm install && npm start"]
