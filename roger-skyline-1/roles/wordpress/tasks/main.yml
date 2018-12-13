@@ -1,0 +1,28 @@
+---
+- name: Copy wordpress folder
+  synchronize:
+    src: wordpress
+    dest: /var/www
+
+- name: Chown directory
+  file:
+    path: /var/www/wordpress
+    recurse: yes
+    owner: www-data
+    group: www-data
+
+- name: Copy wordpress conf
+  template:
+    src: wordpress
+    dest: /etc/nginx/sites-available/wordpress
+
+- name: Enable wordpress
+  file:
+    src: /etc/nginx/sites-available/wordpress
+    dest: /etc/nginx/sites-enabled/wordpress
+    state: link
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: restarted

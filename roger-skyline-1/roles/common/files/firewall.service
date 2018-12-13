@@ -1,0 +1,9 @@
+[Unit]
+Description=Add Firewall Rules to iptables
+
+[Service]
+Type=oneshot
+ExecStart=/etc/firewall/firewall-enable.sh
+
+[Install]
+WantedBy=multi-user.target

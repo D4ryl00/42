@@ -1,0 +1,10 @@
+---
+- name: start firewall
+  service:
+      name: firewall
+      state: start
+
+- name: update IP address
+  service:
+      name: systemd-networkd
+      state: restart

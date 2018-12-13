@@ -1,0 +1,19 @@
+[DEFAULT]
+bantime = 3600
+
+[sshd]
+enabled = true
+port = 62222
+maxentry = 3
+
+[sshd-ddos]
+enabled = true
+port = 62222
+
+[nginx-req-limit]
+enabled = true
+port = 8080,4443
+logpath = /var/log/nginx/*error.log
+findtime = 600
+bantime = 7200
+maxretry = 10

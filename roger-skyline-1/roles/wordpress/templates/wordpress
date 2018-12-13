@@ -1,0 +1,26 @@
+server {
+    listen 8080;
+    listen [::]:8080;
+    server_name {{ host_ip_address }};
+    return 302 https://$server_name:4443$request_uri;
+}
+
+server {
+    listen 4443 ssl;
+    listen [::]:4443 ssl;
+
+    root /var/www/wordpress;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+    }
+
+    include snippets/self-signed.conf;
+    include snippets/ssl-params.conf;
+}

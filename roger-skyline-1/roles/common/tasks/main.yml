@@ -1,0 +1,73 @@
+---
+- name: Copy crontab check scipt
+  copy:
+    src: check_crontab.sh
+    dest: /root/check_crontab.sh
+    mode: a+x
+
+- name: Copy update system script
+  copy:
+    src: update_script.sh
+    dest: /root/update_script.sh
+    mode: a+x
+
+- name: Copy crontab
+  copy:
+    src: cron
+    dest: /root/cron
+
+- name: Set crontab
+  shell: crontab /root/cron
+  become: yes
+
+- name: Create firewall rules directory
+  file:
+    path: /etc/firewall
+    state: directory
+
+- name: Set iptables rules
+  copy:
+    src: firewall-enable.sh
+    dest: /etc/firewall/firewall-enable.sh
+    mode: a+x
+
+- name: Set the firewall service
+  copy:
+    src: firewall.service
+    dest: /etc/systemd/system/firewall.service
+
+- name: Enable firewall
+  systemd:
+    name: firewall
+    state: started
+    enabled: yes
+
+- name: Change sshd config
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+
+- name: config legacy network service
+  copy:
+    src: interfaces
+    dest: /etc/network/interfaces
+
+- name: Set the new IP static
+  template:
+    src: 01-static.network
+    dest: /etc/systemd/network/01-static.network
+
+- name: Set the nat network
+  copy:
+    src: 02-nat.network
+    dest: /etc/systemd/network/02-nat.network
+
+- name: Enable network service
+  service:
+    name: systemd-networkd
+    state: stopped
+    enabled: yes
+
+- name: Reboot machine
+  reboot:
+

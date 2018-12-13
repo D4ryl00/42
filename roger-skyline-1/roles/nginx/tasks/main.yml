@@ -1,0 +1,48 @@
+---
+- name: Install nginx
+  yum:
+    name: nginx
+    state: latest
+    update_cache: yes
+
+- name: Remove default conf
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Copy ssl key
+  copy:
+    src: nginx-selfsigned.key
+    dest: /etc/ssl/private/nginx-selfsigned.key
+    owner: root
+    group: root
+
+- name: Copy ssl cert
+  copy:
+    src: nginx-selfsigned.crt
+    dest: /etc/ssl/certs/nginx-selfsigned.crt
+    owner: root
+    group: root
+
+- name: Copy dhparam
+  copy:
+    src: dhparam.pem
+    dest: /etc/ssl/certs/dhparam.pem
+    owner: root
+    group: root
+
+- name: Copy ssl conf
+  copy:
+    src: self-signed.conf
+    dest: /etc/nginx/snippets/self-signed.conf
+
+- name: Copy dhparam conf
+  copy:
+    src: ssl-params.conf
+    dest: /etc/nginx/snippets/ssl-params.conf
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: yes

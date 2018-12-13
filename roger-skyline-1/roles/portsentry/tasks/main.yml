@@ -1,0 +1,16 @@
+---
+- name: Install portsentry
+  apt:
+    name: portsentry
+    state: latest
+
+- name: Copy config of portsentry
+  copy:
+    src: portsentry.conf
+    dest: /etc/portsentry/portsentry.conf
+
+- name: Restart portsentry service
+  systemd:
+    name: portsentry
+    state: restarted
+    enabled: yes

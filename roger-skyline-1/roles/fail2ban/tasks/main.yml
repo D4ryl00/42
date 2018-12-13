@@ -1,0 +1,21 @@
+---
+- name: Install fail2ban
+  apt:
+    name: fail2ban
+    state: latest
+
+- name: Copy config of fail2ban
+  copy:
+    src: jail.local
+    dest: /etc/fail2ban/jail.local
+
+- name: Copy config of fail2ban
+  copy:
+    src: nginx-req-limit.conf
+    dest: /etc/fail2ban/filter.d/nginx-req-limit.conf
+
+- name: Restart fail2ban service
+  systemd:
+    name: fail2ban
+    state: restarted
+    enabled: yes
